@@ -37,6 +37,7 @@
         ctx.fill();
         ctx.closePath();
     }
+    /*
     function drawBricks() {
            for(var c=0; c<brickColumnCount; c++) {
                for(var r=0; r<brickRowCount; r++) {
@@ -52,9 +53,10 @@
                }
            }
        }
+       */
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBricks();
+      //  drawBricks();
         drawBall();
         if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
             dx = -dx;
