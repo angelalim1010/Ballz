@@ -17,7 +17,7 @@
     var y = canvas.height-30;
     var dx = 2;
     var dy = -2;
-
+    /*
     var brickRowCount = 5;
     var brickColumnCount = 3;
     var brickWidth = 75;
@@ -31,7 +31,7 @@
        for(var r=0; r<brickRowCount; r++) {
            bricks[c][r] = { x: 0, y: 0 };
        }
-
+       */
     function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI*2);
@@ -39,7 +39,7 @@
         ctx.fill();
         ctx.closePath();
     }
-
+    /*
     function drawBricks() {
            for(var c=0; c<brickColumnCount; c++) {
                for(var r=0; r<brickRowCount; r++) {
@@ -55,7 +55,7 @@
                }
            }
        }
-       
+       */
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       //  drawBricks();
