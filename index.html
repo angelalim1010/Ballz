@@ -15,92 +15,17 @@
 
 
 <script>
-   var canvas = document.getElementById("gameCanvas");
-   var ctx = canvas.getContext("2d");
-   var ballRadius = 10;
-   var x = canvas.width/2;
-   var y = canvas.height-30;
-   var gameWidth = canvas.width;
-   var gameHeight = canvas.height;
-   var dx = 2;
-   var dy = -2;
-
-   //brick variables
-   var brickRowCount = 1;
-   var brickColumnCount = 5;
-   var brickWidth = 75;
-   var brickHeight = 20;
-   var brickPadding = 10;
-   var brickOffsetTop = 30;
-   var brickOffsetLeft = 30;
-   var bricks = [];
-
-//for loop to create a 2d array for the bricks
-   for(var c=0; c<brickColumnCount; c++) {
-     bricks[c] = [];
-     for(var r=0; r<brickRowCount; r++) {
-     bricks[c][r] = { x: 0, y: 0, status: 1, power:1 };
-      }
-    }
-    function collisionDetection() {
-        for(var c=0; c<brickColumnCount; c++) {
-            for(var r=0; r<brickRowCount; r++) {
-                var b = bricks[c][r];
-                if(b.status == 1) {
-                    if(x > b.x && x < b.x+brickWidth && y > b.y && y < 	b.y+brickHeight) {
-                        dy = -dy;
-
-                        b.status = 0;
-
-                    }
-                }
-            }
-        }
-    }
-     function drawBall() {
-        ctx.beginPath();
-        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-        ctx.fillStyle = "#0095DD";
-        ctx.fill();
-        ctx.closePath();
-      }
-//function to drawBricks
-      function drawBricks() {
-        for(var c=0; c<brickColumnCount; c++) {
-         for(var r=0; r<brickRowCount; r++) {
-           if(bricks[c][r].status == 1) {
-               var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-               var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-               bricks[c][r].x = brickX;
-               bricks[c][r].y = brickY;
-               ctx.beginPath();
-               ctx.rect(brickX, brickY, brickWidth, brickHeight);
-               ctx.fillStyle = "#0095DD";
-               ctx.fill();
-               ctx.closePath();
-           }
-          }
-        }
-      }
-
-           function draw() {
-               ctx.clearRect(0, 0, canvas.width, canvas.height);
-               drawBricks();
-               drawBall();
-               collisionDetection();
-               if(x + dx >= gameWidth-ballRadius || x + dx <= ballRadius) {
-                   dx = -dx;
-               }
-               if(y + dy <= ballRadius || y + dy >= gameHeight-ballRadius) {
-                   dy = -dy;
-               }
-
-
-
-               x += dx;
-               y += dy;
-           }
-           setInterval(draw, 10);
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="movement.js"></script>
+ <script src="position.js"></script>
+ <script src="canvas.js"></script>
+ <script src="ball.js"></script>
+ <script src="brick.js"></script>
+ <script src="ballMovement.js"></script>
+ <script src="arrow.js"></script>
+ <script src="ballHandler.js"></script>
+ <script src="arrowHandler.js"></script>
+ <script src="main.js"></script>
        </script>
 
        </body>
