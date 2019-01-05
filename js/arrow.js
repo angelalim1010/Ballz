@@ -1,22 +1,24 @@
 class Arrow{
 
-    constructor(gameWidth, gameHeight){
+    constructor(canvas, ballPosition){
+        this.canvas = canvas;
         this.length = 100;
-        this.start = { x: gameWidth / 2, y: gameHeight - 10 };
-        this.end = { x: this.start.x, y: this.start.y - this.length };
+        this.start = canvas.getInitalPosition;
+        this.end.setY(this.end.getY()- this.LENGTH);
         this.angle = 90;
     }
 
 
     getAngle(){ return this.angle; }
 
-    draw(ctx){
-        ctx.beginPath();
-        ctx.moveTo(this.start.x, this.start.y);
-        ctx.lineWidth = 5;
-        ctx.lineTo(this.end.x, this.end.y);
-        ctx.stroke();
-        ctx.lineWidth = 1;
+    draw(){
+      this._update();
+      this.canvas.draw().beginPath();
+      this.canvas.draw().moveTo(this.start.getX(), this.start.getY());
+      this.canvas.draw().lineWidth = 4;
+      this.canvas.draw().lineTo(this.end.getX(), this.end.getY());
+      this.canvas.draw().stroke();
+      this.canvas.draw().lineWidth = 1;
     }
 
     rotateRight(){

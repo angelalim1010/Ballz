@@ -26,14 +26,14 @@ class Brick{
     if(!this.isActive){
       return;
     }
-    this.canvas.fillStyle = "#0095DD";
-    this.canvas.fillRect(this.x, this.y, this.SIZE, this.SIZE);
-    this.canas.fillStyle = "black";
-    this.canvas.font = "20px Arial";
-    this.canvas.textAlign = "center";
-    this.canvas.textBaseLine = "middle";
-    this.canvas.fillText(this.power, this.x + this.SIZE/2, this.y + this.SIZE/2);
-    this.canvas.stroke();
+    this.canvas.draw().fillStyle = "#0095DD";
+    this.canvas.draw().fillRect(this.x, this.y, this.SIZE, this.SIZE);
+    this.canas.draw().fillStyle = "black";
+    this.canvas.draw().font = "20px Arial";
+    this.canvas.draw().textAlign = "center";
+    this.canvas.draw().textBaseLine = "middle";
+    this.canvas.draw().fillText(this.power, this.x + this.SIZE/2, this.y + this.SIZE/2);
+    this.canvas.draw().stroke();
   }
   decreasePower(){
     this.power--;

@@ -4,14 +4,14 @@ class ArrowInputHandler{
 
             switch(event.code){
                 //left arrow
-                case ArrowLeft:
+                case "ArrowLeft":
                     if(!ball.isMoving()){
                         arrow.rotateLeft();
                     };
                     break;
 
                 //right arrow
-                case ArrowRight:
+                case "ArrowRight":
                     if(!ball.isMoving()){
                         arrow.rotateRight();
                     };
