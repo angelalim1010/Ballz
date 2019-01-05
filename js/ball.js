@@ -10,13 +10,15 @@ class Ball{
     return this.Movement.moving();
   }
   draw(){
+    this.canvas.setColor("#0095DD");
     this.canvas.draw().beginPath();
     this.canvas.draw().arc(this.position.getX(), this.position.getY(), this.RADIUS, 0, Math.PI*2);
-    this.canvas.draw().fillStyle = "#0095DD";
+  //  this.canvas.draw().fillStyle = "#0095DD";
     this.canvas.draw().fill();
-    this.canvas.draw().closePath();
+    //this.canvas.draw().closePath();
   }
   move(movement){
     this.movement = movement;
     this.position.move(movement);
   }
+}

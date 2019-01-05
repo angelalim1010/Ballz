@@ -10,8 +10,8 @@ $(function(){
 
     var bricks = []
 
-    for(var i = 0; i < 2; i++){
-        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
+    for(var i = 0; i < 3; i++){
+        bricks.push(new Brick(canvas, i;
     }
 
     var ball_handle = new ballHandler(canvas, bricks, balls[0].getRadius());

@@ -2,22 +2,23 @@ class Brick{
   constructor(canvas){
     this.canvas = canvas;
     this.SIZE = 50;
-    this.x = 75;
-    this.y = 75;
+    this.WIDTH = 75;
+    this.HEIGHT = 75;
+    //this.position = position;
     this.power = 10;
 
   }
   getTop(){
-    return this.y;
+    return this.HEIGHT;
   }
   getBottom(){
-    return this.y + this.SIZE;
+    return this.HEIGHT + this.SIZE;
   }
   getLeft(){
-    return this.x
+    return this.WIDTH;
   }
   getRight(){
-    return this.x + this.width;
+    return this.WIDTH + this.SIZE;
   }
   isActive(){
     return this.power > 0;
@@ -26,14 +27,15 @@ class Brick{
     if(!this.isActive){
       return;
     }
-    this.canvas.draw().fillStyle = "#0095DD";
-    this.canvas.draw().fillRect(this.x, this.y, this.SIZE, this.SIZE);
-    this.canas.draw().fillStyle = "black";
+    this.canvas.setColor("#0095DD");
+    this.canvas.draw().fillRect(this.WIDTH, this.HEIGHT, this.SIZE, this.SIZE);
+    this.canas.setColor("#000000");
     this.canvas.draw().font = "20px Arial";
-    this.canvas.draw().textAlign = "center";
-    this.canvas.draw().textBaseLine = "middle";
-    this.canvas.draw().fillText(this.power, this.x + this.SIZE/2, this.y + this.SIZE/2);
-    this.canvas.draw().stroke();
+    var textWidth = this.canvas.draw().measureText(this.power).width;
+		this.canvas.draw().fillText(
+			this.power,
+			this.x + (this.SIZE - textWidth) / 2,
+			this.y + textHeight + (this.SIZE - textHeight) / 2);
   }
   decreasePower(){
     this.power--;
