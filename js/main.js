@@ -52,7 +52,7 @@ $(function(){
 
         for(var i = 0; i< balls.length; i++){
             if(Date.now() - startTime > 200 * i){
-                balls[i].move(bounce);
+                balls[i].move(ball_handle);
                 if(!balls[i].isMoving() && firstBall == -1) firstBall = i;
             }
 
