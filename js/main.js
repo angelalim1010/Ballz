@@ -1,58 +1,82 @@
-$(function() {
-  var canvas = new Canvas();
+$(function(){
+    var canvas = new Canvas();
 
-  // Create the bricks.
-  var brick = new Brick(canvas);
-  brick.draw();
-
-  // Create the balls.
-  var balls = [];
-  for (var i =0 ; i < 10 ; ++i) {
-    balls.push(new Ball(canvas));
-  }
-  balls[0].draw();
-
-  // Create aim line.
-  var aimLine = new AimLine(canvas);
-  aimLine.initialize();
-
-  var startTime;
-
-  // Makes all the balls progress by one step.
-  var doOneStep = function() {
-    brick.draw();
-    for (var i = 0 ; i < balls.length ; ++i) {
-      var ball = balls[i];
-
-      // Check if the ball should start moving.
-      if (!ball.isMoving()) {
-        if (Date.now() - startTime > 500 * i) {
-          ball.erase();
-          ball.move(aimLine.getMovement());
-        }
-        ball.draw();
-        return;
-      }
-
-      var move = ball.createMove();
-      move.handleBorder(canvas);
-      if (move.handleBrick(brick)) {
-        brick.touchedByBall();
-        brick.draw();
-      }
-
-      ball.erase();
-      ball.move(move.getMovement());
-      ball.draw();
+    var balls = [];
+    for(var i = 0; i < 10; i++){
+        balls.push(new Ball(canvas));
     }
-  };
 
-  // Handle click on Start button.
-  $('#start').click(function() {
-  //  console.log('Start clicked');
-    startTime = Date.now();
-    setInterval(doOneStep, /*milliseconds=*/20);
-  });
+    var arrow = new Arrow(canvas, balls[0].getPosition());
 
+    var bricks = []
+
+    for(var i = 0; i < 2; i++){
+        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
+    }
+
+    var ball_handle = new ballHandler(canvas, bricks, balls[0].getRadius());
+
+    var inputHandler = new ArrowInputHandler(arrow, balls[0]);
+
+    var nextMove;
+
+    var startTime;
+    var firstBall = -1;
+
+    $('#startGame').click(function(){
+        if(!balls[0].isMoving()){
+            for(var i = 0; i < balls.length; i++){
+                nextMove = new Movement(arrow.getAngle(), 5);
+                balls[i].setMovement(nextMove);
+            }
+            arrow = new Arrow(canvas, balls[0].getPosition());
+            inputHandler = new ArrowInputHandler(arrow, balls[0]);
+            startTime = Date.now();
+            this.blur();
+        }
+    });
+
+    function ballsMoving(){
+        for(var i = 0; i < balls.length; i++){
+            if(balls[i].isMoving()) return true;
+        }
+        return false;
+    }
+
+    function gameLoop(){
+        canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        if(!ballsMoving()){
+            arrow.draw();
+        }
+
+        for(var i = 0; i< balls.length; i++){
+            if(Date.now() - startTime > 200 * i){
+                balls[i].move(bounce);
+                if(!balls[i].isMoving() && firstBall == -1) firstBall = i;
+            }
+
+            balls[i].draw();
+        }
+
+        if(firstBall != -1 && !ballsMoving()){
+            var startX = balls[firstBall].getPosition().getX();
+            for(var i = 0; i < balls.length; i++){
+                if(i != firstBall){
+                    balls[i].getPosition().setX(startX);
+                }
+            }
+            firstBall != -1;
+        }
+
+        for(var i = 0; i < bricks.length; i++){
+            if(bricks[i].isActive()) bricks[i].draw();
+            else bricks.splice(i, 1);
+        }
+
+        requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
 
 });
