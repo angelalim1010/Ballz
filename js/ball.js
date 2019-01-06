@@ -7,7 +7,7 @@ class Ball{
   }
 
   isMoving(){
-    return this.Movement.moving();
+    return this.movement.isMoving();
   }
   createMove(){
     return new BallMove(this.position, this.movement);

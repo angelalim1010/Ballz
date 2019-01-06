@@ -30,7 +30,8 @@ class Brick{
     this.canvas.setColor("#0095DD");
     this.canvas.draw().fillRect(this.WIDTH, this.HEIGHT, this.SIZE, this.SIZE);
     this.canas.setColor("#000000");
-    this.canvas.draw().font = "20px Arial";
+    const textHeight = 12;
+    this.canvas.draw().font = textHeight + "px Arial";
     var textWidth = this.canvas.draw().measureText(this.power).width;
 		this.canvas.draw().fillText(
 			this.power,
