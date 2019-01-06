@@ -11,7 +11,7 @@ $(function(){
     var bricks = []
 
     for(var i = 0; i < 3; i++){
-        bricks.push(new Brick(canvas, i;
+        bricks.push(new Brick(canvas, i);
     }
 
     var ball_handle = new ballHandler(canvas, bricks, balls[0].getRadius());
@@ -36,47 +36,37 @@ $(function(){
         }
     });
 
-    function ballsMoving(){
-        for(var i = 0; i < balls.length; i++){
-            if(balls[i].isMoving()) return true;
-        }
-        return false;
-    }
+    var step = function() {
+		canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		for (var j = 0; j < bricks.length; j++) {
+			bricks[j].draw();
+		}
+		for (var i = 0 ; i < balls.length ; i++) {
+			var ball = balls[i];
 
-    function gameLoop(){
-        canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			ball.draw();
+			// Check if the ball should start moving.
+			 if (!ball.isMoving()) {
+				if (Date.now() - startTime > 500 * i) {
+					ball.move(mvmt);
+				}
+				ball.draw();
+				return;
+			}
 
-        if(!ballsMoving()){
-            arrow.draw();
-        }
+			var move = ball.createMovement();
+			move.borderTouched(canvas);
+			for (var j = 0; j < brick.length; j++) {
+				var brick = brick[j];
 
-        for(var i = 0; i< balls.length; i++){
-            if(Date.now() - startTime > 200 * i){
-                balls[i].move(ball_handle);
-                if(!balls[i].isMoving() && firstBall == -1) firstBall = i;
-            }
+				if (move.brickTouched(brick)) {
+					brick.touchedByBall();
+					brick.draw();
+				}
 
-            balls[i].draw();
-        }
-
-        if(firstBall != -1 && !ballsMoving()){
-            var startX = balls[firstBall].getPosition().getX();
-            for(var i = 0; i < balls.length; i++){
-                if(i != firstBall){
-                    balls[i].getPosition().setX(startX);
-                }
-            }
-            firstBall != -1;
-        }
-
-        for(var i = 0; i < bricks.length; i++){
-            if(bricks[i].isActive()) bricks[i].draw();
-            else bricks.splice(i, 1);
-        }
-
-        requestAnimationFrame(gameLoop);
-    }
-
-    gameLoop();
-
+			}
+			ball.move(move.getMovement());
+			ball.draw();
+		}
+	};
 });
