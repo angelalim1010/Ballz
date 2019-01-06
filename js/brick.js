@@ -48,4 +48,3 @@ class Brick{
    this.canvas.draw().clearRect(this.x, this.y, this.SIZE, this.SIZE);
  }
 }
-}
