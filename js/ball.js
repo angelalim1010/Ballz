@@ -9,6 +9,9 @@ class Ball{
   isMoving(){
     return this.Movement.moving();
   }
+  createMovement(){
+    return new BallMovement(this.position, this.movement);
+  }
   draw(){
     this.canvas.setColor("#0095DD");
     this.canvas.draw().beginPath();

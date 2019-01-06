@@ -1,72 +1,58 @@
-$(function(){
-    var canvas = new Canvas();
+$(function() {
+  var canvas = new Canvas();
 
-    var balls = [];
-    for(var i = 0; i < 10; i++){
-        balls.push(new Ball(canvas));
-    }
+  // Create the bricks.
+  var brick = new Brick(canvas);
+  brick.draw();
 
-    var arrow = new Arrow(canvas, balls[0].getPosition());
+  // Create the balls.
+  var balls = [];
+  for (var i =0 ; i < 10 ; ++i) {
+    balls.push(new Ball(canvas));
+  }
+  balls[0].draw();
 
-    var bricks = []
+  // Create aim line.
+  var aimLine = new AimLine(canvas);
+  aimLine.initialize();
 
-    for(var i = 0; i < 3; i++){
-        bricks.push(new Brick(canvas, i);
-    }
+  var startTime;
 
-    var ball_handle = new ballHandler(canvas, bricks, balls[0].getRadius());
+  // Makes all the balls progress by one step.
+  var doOneStep = function() {
+    brick.draw();
+    for (var i = 0 ; i < balls.length ; ++i) {
+      var ball = balls[i];
 
-    var inputHandler = new ArrowInputHandler(arrow, balls[0]);
-
-    var nextMove;
-
-    var startTime;
-    var firstBall = -1;
-
-    $('#startGame').click(function(){
-        if(!balls[0].isMoving()){
-            for(var i = 0; i < balls.length; i++){
-                nextMove = new Movement(arrow.getAngle(), 5);
-                balls[i].setMovement(nextMove);
-            }
-            arrow = new Arrow(canvas, balls[0].getPosition());
-            inputHandler = new ArrowInputHandler(arrow, balls[0]);
-            startTime = Date.now();
-            this.blur();
+      // Check if the ball should start moving.
+      if (!ball.isMoving()) {
+        if (Date.now() - startTime > 500 * i) {
+          ball.erase();
+          ball.move(aimLine.getMovement());
         }
-    });
+        ball.draw();
+        return;
+      }
 
-    var step = function() {
-		canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for (var j = 0; j < bricks.length; j++) {
-			bricks[j].draw();
-		}
-		for (var i = 0 ; i < balls.length ; i++) {
-			var ball = balls[i];
+      var move = ball.createMove();
+      move.handleBorder(canvas);
+      if (move.handleBrick(brick)) {
+        brick.touchedByBall();
+        brick.draw();
+      }
 
-			ball.draw();
-			// Check if the ball should start moving.
-			 if (!ball.isMoving()) {
-				if (Date.now() - startTime > 500 * i) {
-					ball.move(mvmt);
-				}
-				ball.draw();
-				return;
-			}
+      ball.erase();
+      ball.move(move.getMovement());
+      ball.draw();
+    }
+  };
 
-			var move = ball.createMovement();
-			move.borderTouched(canvas);
-			for (var j = 0; j < brick.length; j++) {
-				var brick = brick[j];
+  // Handle click on Start button.
+  $('#start').click(function() {
+    console.log('Start clicked');
+    startTime = Date.now();
+    setInterval(doOneStep, /*milliseconds=*/20);
+  });
 
-				if (move.brickTouched(brick)) {
-					brick.touchedByBall();
-					brick.draw();
-				}
 
-			}
-			ball.move(move.getMovement());
-			ball.draw();
-		}
-	};
 });

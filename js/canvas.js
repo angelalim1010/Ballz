@@ -18,5 +18,6 @@ class Canvas {
 	draw() { return this.canvas; }
 	//Sets color of object calling this function
 	setColor(color) { this.canvas.fillStyle = color; }
-
+	getInitialPosition() {
+	    return new Position(this.width / 2, this.height - 10);
 }
