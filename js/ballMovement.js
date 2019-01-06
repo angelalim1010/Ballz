@@ -1,35 +1,68 @@
-class BallMovement{
-  constructor(position, movement){
+// Represents one movement of one ball.
+// Tries to move and handle bounces on various elements, if necessary.
+class BallMove {
+
+  constructor(position, movement) {
     this.position = position;
     this.movement = movement;
   }
-  getMovement(){
-    return this.movement;
+
+  // Returns the direction of the ball.
+  // This should be called after the handleXxx() function have been called.
+  getMovement() { return this.movement; }
+
+  // Handles the bounches around the canvas border.
+  handleBorder(canvas) {
+    // Left border.
+    this._handleRectangle(-10, -10, 0, canvas.getHeight() + 10);
+    // Right border.
+    this._handleRectangle(canvas.getWidth(), -10, canvas.getWidth() + 10,
+                          canvas.getHeight() + 10);
+    // Top border.
+    this._handleRectangle(-10, -10, canvas.getWidth() + 10, 0);
+    // Bottom border.
+    this._handleRectangle(-10, canvas.getHeight(), canvas.getWidth() + 10,
+                          canvas.getHeight() + 10);
   }
-  borderTouched(canvas){
-    if(this.position.x + this.movement.dx >= canvas.getWidth-this.RADIUS || this.position.x + this.movement.dx <= this.RADIUS) {
-        this.movement.reverseX;
+
+  // Handles the bounces on a brick. Returns whether there was a bounce.
+  handleBrick(brick) {
+    return brick.isActive()
+        && this._handleRectangle(brick.getLeft(), brick.getTop(),
+                                 brick.getRight(), brick.getBottom());
+  }
+
+  // Changes movement if the ball penetrates a rectangle, defined by the
+  // parameters.
+  // Returns whether there was a bounce.
+  _handleRectangle(left, top, right, bottom) {
+    const xIsInRectangleAfterMove =
+        this._isInRange(this.position.getX() + this.movement.getDx(),
+                        left, right);
+    const yIsInRectangleAfterMove =
+        this._isInRange(this.position.getY() + this.movement.getDy(),
+                        top, bottom);
+    if (!xIsInRectangleAfterMove || !yIsInRectangleAfterMove) {
+      // Ball is not in the rectangle. No bounce to do.
+      return false;
     }
-    if(this.position.y + this.movement.dy <= this.RADIUS || y + dy >= canvas.getHeight-this.RADIUS) {
-        this.movement.reverseY;
-    })
+    const xIsInRectangleBeforeMove =
+        this._isInRange(this.position.getX(), left, right);
+    const yIsInRectangleBeforeMove =
+        this._isInRange(this.position.getY(), top, bottom);
+    if (!xIsInRectangleBeforeMove && xIsInRectangleAfterMove) {
+      console.log("x bounce");
+      this.movement.reverseX();
+    }
+    if (!yIsInRectangleBeforeMove && yIsInRectangleAfterMove) {
+      console.log("y bounce");
+      this.movement.reverseY();
+    }
+    return true;
+  }
+
+  // Returns whether a number if in between two others.
+  _isInRange(n, min, max) {
+    return min < n && n < max;
   }
 }
-  brickTouched(brick){
-    for(var i=0; i<bricks.length; i++){
-        if(this.position.x > bricks[i].getLeft() && this.position.x < bricks[i].getRight()){
-                //handles top and bottom of the brick
-          if(this.position.y > bricks[i].getTop() - this.RADIUS && this.position.y < bricks[i].getBottom() + this.RADIUS){
-              this.reverseY();
-              bricks[i].decreasePower();
-            }
-          }else if(this.position.y > bricks[i].getTop() && this.position.y < bricks[i].getBottom()){
-                //handles left and right of the brick
-            if(this.position.x > bricks[i].getLeft() - this.RADIUS && this.position.x < bricks[i].getRight() + this.RADIUS){
-              this.reverseX();
-              bricks[i].decreasePower();
-          }
-        }
-
-    }
-  }
