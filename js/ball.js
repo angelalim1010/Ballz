@@ -20,12 +20,14 @@ class Ball{
     this.canvas.draw().fill();
     //this.canvas.draw().closePath();
   }
-  const buffer = 5;
-  this.canvas.draw().clearRect(this.position.getX() - this.RADIUS - buffer,
-                               this.position.getY() - this.RADIUS - buffer,
-                               this.RADIUS * 2 + buffer,
-                               this.RADIUS * 2 + buffer);
-}
+  // Erases the area around the ball current position.
+    erase() {
+      const buffer = 5;
+      this.canvas.draw().clearRect(this.position.getX() - this.RADIUS - buffer,
+                                   this.position.getY() - this.RADIUS - buffer,
+                                   this.RADIUS * 2 + buffer,
+                                   this.RADIUS * 2 + buffer);
+    }
 
   move(movement){
     this.movement = movement;
