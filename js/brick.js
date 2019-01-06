@@ -1,51 +1,54 @@
-class Brick{
-  constructor(canvas){
+// Represents one brick in the game.
+class Brick {
+
+  constructor(canvas) {
     this.canvas = canvas;
     this.SIZE = 50;
-    this.WIDTH = 75;
-    this.HEIGHT = 75;
-    //this.position = position;
-    this.power = 10;
 
+    this.x = 100;
+    this.y = 100;
+    this.power = 25;
   }
-  getTop(){
-    return this.HEIGHT;
-  }
-  getBottom(){
-    return this.HEIGHT + this.SIZE;
-  }
-  getLeft(){
-    return this.WIDTH;
-  }
-  getRight(){
-    return this.WIDTH + this.SIZE;
-  }
-  isActive(){
-    return this.power > 0;
-  }
-  draw(){
-    if(!this.isActive){
+
+  // Getters
+  getLeft() { return this.x; }
+  getRight() { return this.x + this.SIZE; }
+  getTop() { return this.y; }
+  getBottom() { return this.y + this.SIZE; }
+
+  // Returns whether the brick has not yet been destroyed.
+  isActive() { return this.power > 0; }
+
+  // Draws the brick at its current location.
+  draw() {
+    if (!this.isActive()) {
       return;
     }
-    this.canvas.setColor("#0095DD");
-    this.canvas.draw().fillRect(this.WIDTH, this.HEIGHT, this.SIZE, this.SIZE);
-    this.canas.setColor("#000000");
+
+    // Draw rectangle.
+    this.canvas.setColor("#AAAAAA" /* grey */);
+    this.canvas.draw().fillRect(this.x, this.y, this.SIZE, this.SIZE);
+
+    // Draw text.
+    this.canvas.setColor("#000000" /* black */);
     const textHeight = 12;
     this.canvas.draw().font = textHeight + "px Arial";
     var textWidth = this.canvas.draw().measureText(this.power).width;
-		this.canvas.draw().fillText(
-			this.power,
-			this.x + (this.SIZE - textWidth) / 2,
-			this.y + textHeight + (this.SIZE - textHeight) / 2);
+    this.canvas.draw().fillText(
+        this.power,
+        this.x + (this.SIZE - textWidth) / 2,
+        this.y + textHeight + (this.SIZE - textHeight) / 2);
   }
-  touchedByBall() {
-   if (--this.power <= 0) {
-     this._erase();
-   };
- }
 
- // Erases the rectangle occupied by the brick.
- _erase() {
-   this.canvas.draw().clearRect(this.x, this.y, this.SIZE, this.SIZE);
- }
+  // Indicates that the brick has been touched by a ball.
+  touchedByBall() {
+    if (--this.power <= 0) {
+      this._erase();
+    };
+  }
+
+  // Erases the rectangle occupied by the brick.
+  _erase() {
+    this.canvas.draw().clearRect(this.x, this.y, this.SIZE, this.SIZE);
+  }
 }
