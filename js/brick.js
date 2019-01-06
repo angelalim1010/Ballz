@@ -37,7 +37,15 @@ class Brick{
 			this.x + (this.SIZE - textWidth) / 2,
 			this.y + textHeight + (this.SIZE - textHeight) / 2);
   }
-  decreasePower(){
-    this.power--;
-  }
+  touchedByBall() {
+   if (--this.power <= 0) {
+     this._erase();
+   };
+ }
+
+ // Erases the rectangle occupied by the brick.
+ _erase() {
+   this.canvas.draw().clearRect(this.x, this.y, this.SIZE, this.SIZE);
+ }
+}
 }
