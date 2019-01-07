@@ -22,6 +22,7 @@ $(function() {
 
   // Makes all the balls progress by one step.
   var doOneStep = function() {
+    canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     for (var j = 0; j < bricks.length; j++) {
 			bricks[j].draw();
 		}
