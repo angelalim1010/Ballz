@@ -40,13 +40,18 @@ $(function() {
 
       var move = ball.createMove();
       move.handleBorder(canvas);
-      for (var j = 0; ; < bricks.length; j++){
-        var brick = bricks[j]
-      if (move.handleBrick(brick)) {
-        brick.touchedByBall();
-        brick.draw();
-      }
-      }
+      for (var j = 0; j < bricks.length; j++) {
+      				var brick = bricks[j];
+
+      				if (move.handleBrick(brick)) {
+      					brick.touchedByBall();
+      					brick.draw();
+      				}
+
+      			}
+      			ball.move(move.getMovement());
+      			ball.draw();
+      		}
 
       ball.erase();
       ball.move(move.getMovement());
