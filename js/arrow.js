@@ -41,7 +41,7 @@ class AimLine {
         startX + Math.round(length * Math.cos(this._degreeToRadian(angle))),
         startY - Math.round(length * Math.sin(this._degreeToRadian(angle))));
     this.canvas.draw().strokeStyle =
-        erase ? "#FFFFFF" /* white */ : "#00ffff" /* blue */;
+        erase ? "#FFFFFF" /* white */ : "#000000" /* blue */;
     this.canvas.draw().lineWidth = erase ? 3 : 1;
     this.canvas.draw().stroke();
   }
