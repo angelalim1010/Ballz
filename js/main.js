@@ -2,8 +2,10 @@ $(function() {
   var canvas = new Canvas();
 
   // Create the bricks.
-  var brick = new Brick(canvas);
-  brick.draw();
+  var bricks = [];
+  for(var i = 0; i < 4; i++){
+        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
+    }
 
   // Create the balls.
   var balls = [];
@@ -20,7 +22,9 @@ $(function() {
 
   // Makes all the balls progress by one step.
   var doOneStep = function() {
-    brick.draw();
+    for (var j = 0; j < bricks.length; j++) {
+			bricks[j].draw();
+		}
     for (var i = 0 ; i < balls.length ; ++i) {
       var ball = balls[i];
 
@@ -36,9 +40,12 @@ $(function() {
 
       var move = ball.createMove();
       move.handleBorder(canvas);
+      for (var j = 0; ; < bricks.length; j++){
+        var brick = bricks[j]
       if (move.handleBrick(brick)) {
         brick.touchedByBall();
         brick.draw();
+      }
       }
 
       ball.erase();
