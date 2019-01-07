@@ -49,9 +49,7 @@ $(function() {
       					brick.draw();
       				}
 
-      			}
-      			ball.move(move.getMovement());
-      			ball.draw();
+
       		}
 
       ball.erase();
