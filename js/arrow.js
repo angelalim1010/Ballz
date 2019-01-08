@@ -13,7 +13,7 @@ class AimLine {
     this.DELTA = 1;
     this.LENGTH = 50;
     this.canvas = canvas;
-    this.angle = 110;
+    this.angle = 90;
   }
 
   // Starts listening to keyboard events.
