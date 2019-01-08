@@ -3,7 +3,7 @@ class Ball {
 
   constructor(canvas) {
     this.canvas = canvas;
-    this.RADIUS = 3;
+    this.RADIUS = 6;
 
     this.position = canvas.getInitialPosition();
     this.movement = new Movement(0, 0);
@@ -19,7 +19,7 @@ class Ball {
 
   // Draws the ball at its current location.
   draw() {
-    this.canvas.setColor("#C00000" /* red */);
+    this.canvas.setColor("#000000" /* red */);
     this.canvas.draw().beginPath();
     this.canvas.draw().arc(this.position.getX(), this.position.getY(), this.RADIUS,
                            /*startAngle=*/0, /*endAngle=*/Math.PI * 2)
