@@ -4,7 +4,7 @@ $(function() {
   // Create the bricks.
   var bricks = [];
   for(var i = 0; i < 4; i++){
-        bricks.push(new Brick(canvas,j));
+        bricks.push(new Brick(canvas,i));
 
   // Create the balls.
   var balls = [];
