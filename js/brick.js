@@ -1,4 +1,5 @@
 // Represents one brick in the game.
+//
 class Brick {
 
   constructor(canvas) {
