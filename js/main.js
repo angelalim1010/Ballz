@@ -4,8 +4,7 @@ $(function() {
   // Create the bricks.
   var bricks = [];
   for(var i = 0; i < 4; i++){
-        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
-    }
+        bricks.push(new Brick(canvas,j));
 
   // Create the balls.
   var balls = [];
