@@ -3,11 +3,11 @@ class Brick {
 
   constructor(canvas) {
     this.canvas = canvas;
-    this.SIZE = 50;
+		this.SIZE = 50;
 
-    this.x = 100;
-    this.y = 100;
-    this.power = 25;
+		this.x = 100 * j;
+		this.y = 100;
+		this.power = 5;
   }
 
   // Getters

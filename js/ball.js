@@ -19,7 +19,7 @@ class Ball {
 
   // Draws the ball at its current location.
   draw() {
-    this.canvas.setColor("#000000" /* red */);
+    this.canvas.setColor("#333333" /* red */);
     this.canvas.draw().beginPath();
     this.canvas.draw().arc(this.position.getX(), this.position.getY(), this.RADIUS,
                            /*startAngle=*/0, /*endAngle=*/Math.PI * 2)
