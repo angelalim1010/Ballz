@@ -1,4 +1,7 @@
-
+div{
+  width: 400;
+  margin: 100 auto;
+}
 
 canvas {
   border-style: solid;
