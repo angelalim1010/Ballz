@@ -1,9 +1,5 @@
-div{
-  width: 400;
-  margin: 100 auto;
-}
-
 canvas {
+  margin: 100 auto;
   border-style: solid;
   border-width: 1px;
 }
