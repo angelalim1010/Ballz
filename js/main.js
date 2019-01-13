@@ -1,68 +1,89 @@
 $(function() {
-  var canvas = new Canvas();
 
-  // Create the bricks.
-  var bricks = [];
-  for(var i = 0; i < 4; i++){
-        bricks.push(new Brick(canvas,i));
+	var canvas = new Canvas();
+	var running = false; //game running flag
+	var startTime; //start time
 
-  // Create the balls.
-  var balls = [];
-  for (var i =0 ; i < 10 ; ++i) {
-    balls.push(new Ball(canvas));
-  }
-  balls[0].draw();
+	//Ball movement
+	var mvmt;
 
-  // Create aim line.
-  var aimLine = new AimLine(canvas);
-  aimLine.initialize();
+	//Create the ball launcher
+	var launcher = new BallLauncher(canvas);
 
-  var startTime;
+	//Create the balls
+	var balls = [];
+	for (var i = 0; i < 10; i++) {
+		balls.push( new Ball(canvas) );
+	}
 
-  // Makes all the balls progress by one step.
-  var doOneStep = function() {
-    canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    for (var j = 0; j < bricks.length; j++) {
-			bricks[j].draw();
+	//Create the tiles
+	var tiles = [];
+	for (var j = 0; j < 5; j++) {
+		tiles.push( new Tile (canvas, j) );
+	}
+
+	// Makes all the balls progress by one step.
+	var step = function() {
+		console.log('Running game');
+
+		canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		for (var j = 0; j < tiles.length; j++) {
+			tiles[j].draw();
 		}
-    for (var i = 0 ; i < balls.length ; ++i) {
-      var ball = balls[i];
+		for (var i = 0 ; i < balls.length ; i++) {
+			var ball = balls[i];
 
-      // Check if the ball should start moving.
-      if (!ball.isMoving()) {
-        if (Date.now() - startTime > 500 * i) {
-          ball.erase();
-          ball.move(aimLine.getMovement());
-        }
-        ball.draw();
-        return;
-      }
+			ball.draw();
+			// Check if the ball should start moving.
+			 if (!ball.isMoving()) {
+				if (Date.now() - startTime > 500 * i) {
+					ball.move(mvmt);
+				}
+				ball.draw();
+				return;
+			}
 
-      var move = ball.createMove();
-      move.handleBorder(canvas);
-      for (var j = 0; j < bricks.length; j++) {
-      				var brick = bricks[j];
+			var move = ball.createMovement();
+			move.handleBorder(canvas);
+			for (var j = 0; j < tiles.length; j++) {
+				var tile = tiles[j];
 
-      				if (move.handleBrick(brick)) {
-      					brick.touchedByBall();
-      					brick.draw();
-      				}
+				if (move.handleTile(tile)) {
+					tile.touchedByBall();
+					tile.draw();
+				}
 
+			}
+			ball.move(move.getMovement());
+			ball.draw();
+		}
+	};
 
-      		}
+	//Point launcher
+	onmousemove = function(event)  {
+		if (!running) {
+			canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			canvas.draw();
+			for (var j = 0; j < tiles.length; j++) {
+				tiles[j].draw();
+			}
+			launcher.draw(event); //Points launcher upon mouse hover (right now just creates a ball on cursor)
+		}
+	}
 
-      ball.erase();
-      ball.move(move.getMovement());
-      ball.draw();
-    }
-  };
-
-  // Handle click on Start button.
-  $('#start').click(function() {
-    console.log('Start clicked');
-    startTime = Date.now();
-    setInterval(doOneStep, /*milliseconds=*/20);
-  });
-
+	//Shoot balls
+	onclick = function(e) {
+		running = true;
+		console.log('Clicked mouse');
+		var mouseX = e.clientX;
+		var mouseY = e.clientY;
+		//if (mouseX > canvas.getStartPosition().getX()) { mouseX = canvas.getStartPosition().getX(); }
+		if (mouseY > canvas.getStartPosition().getY()) { mouseY = canvas.getStartPosition().getY() - 45; }
+		var angle = Math.atan2(mouseY - canvas.getStartPosition().getY(),
+				mouseX - canvas.getStartPosition().getX());
+		mvmt = new Movement(Math.cos(angle), Math.sin(angle));
+		startTime = Date.now();
+		setInterval(step, 10);
+	}
 
 });
