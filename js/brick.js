@@ -1,5 +1,5 @@
 // Represents one brick in the game.
-class Brick {
+class Tile {
 
 	constructor(canvas, j) {
 		this.canvas = canvas;

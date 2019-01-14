@@ -42,9 +42,9 @@ class BallMovement {
 	}
 
 	// Handles the bounces on a tile. Returns whether there was a bounce.
-	handleBrick(brick) {
-		return brick.isActive()
-			&& this._handleRectangle(brick.getLeft(), brick.getTop(), brick.getRight(), brick.getBottom());
+	handleTile(tile) {
+		return tile.isActive()
+			&& this._handleRectangle(tile.getLeft(), tile.getTop(), tile.getRight(), tile.getBottom());
 	}
 
 	// Changes movement if the ball penetrates a rectangle, defined by the
