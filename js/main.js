@@ -17,9 +17,9 @@ $(function() {
 	}
 
 	//Create the tiles
-	var tiles = [];
+	var bricks = [];
 	for (var j = 0; j < 5; j++) {
-		tiles.push( new Tile (canvas, j) );
+		bricks.psh( new Brick (canvas, j) );
 	}
 
 	// Makes all the balls progress by one step.
@@ -27,8 +27,8 @@ $(function() {
 		console.log('Running game');
 
 		canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for (var j = 0; j < tiles.length; j++) {
-			tiles[j].draw();
+		for (var j = 0; j < bricks.length; j++) {
+			bricks[j].draw();
 		}
 		for (var i = 0 ; i < balls.length ; i++) {
 			var ball = balls[i];
@@ -45,12 +45,12 @@ $(function() {
 
 			var move = ball.createMovement();
 			move.handleBorder(canvas);
-			for (var j = 0; j < tiles.length; j++) {
-				var tile = tiles[j];
+			for (var j = 0; j < bricks.length; j++) {
+				var brick = bricks[j];
 
-				if (move.handleTile(tile)) {
-					tile.touchedByBall();
-					tile.draw();
+				if (move.handleBrick(brick)) {
+					brick.touchedByBall();
+					brick.draw();
 				}
 
 			}
@@ -64,8 +64,8 @@ $(function() {
 		if (!running) {
 			canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 			canvas.draw();
-			for (var j = 0; j < tiles.length; j++) {
-				tiles[j].draw();
+			for (var j = 0; j < bricks.length; j++) {
+				bricks[j].draw();
 			}
 			launcher.draw(event); //Points launcher upon mouse hover (right now just creates a ball on cursor)
 		}
