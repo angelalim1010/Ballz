@@ -77,3 +77,4 @@ class BallMovement {
 		return min < n && n < max;
 	}
 }
+}
