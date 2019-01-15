@@ -5,8 +5,8 @@ class Tile {
 		this.canvas = canvas;
 		this.SIZE = 50;
 
-		this.x = 100 * j;
-		this.y = 100;
+		this.x = 10 * j;
+		this.y = 10;
 		this.power = 5;
 	}
 
