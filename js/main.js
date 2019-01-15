@@ -10,7 +10,7 @@ $(function(){
 
     var bricks = []
 
-    for(var i = 0; i < 2; i++){
+    for(var i = 0; i < 5; i++){
         bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
     }
 
