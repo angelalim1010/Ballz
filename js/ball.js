@@ -13,10 +13,11 @@ class Ball{
     isMoving(){ return this.movement.isMoving(); }
 
     draw(){
-        this.canvas.setColor("#DDDDDD");
         this.canvas.draw().beginPath();
         this.canvas.draw().arc(this.position.getX(), this.position.getY(), this.RADIUS, 0, 2 * Math.PI, false);
+        this.canvas.draw().fillStyle = "DDDDDD";
         this.canvas.draw().fill();
+        this.canvas.draw().stroke();
     }
 
     setMovement(movement){ this.movement = movement; }

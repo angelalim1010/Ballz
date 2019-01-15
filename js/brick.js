@@ -17,9 +17,11 @@ class Brick {
   isActive(){ return this.power > 0; }
 
   draw(){
-      this.canvas.setColor("#AAAAAAA");
-      this.canvas.draw().fillRect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
-      this.canvas.setColor("#DDDDDD");
+    this.canvas.draw().beginPath();
+      this.canvas.draw().rect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
+      this.canvas.draw().fillStyle = "#5b6060";
+      this.canvas.draw().fill();
+      this.canvas.draw().fillStyle = "#000000";
       this.canvas.draw().font = "14px Arial";
       this.canvas.draw().textAlign = "center";
       this.canvas.draw().textBaseline = "middle";
