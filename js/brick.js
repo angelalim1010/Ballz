@@ -17,9 +17,9 @@ class Brick {
   isActive(){ return this.power > 0; }
 
   draw(){
-      this.canvas.draw().setColor("#AAAAAAA");
+      this.canvas.draw().setColor("AAAAAAA");
       this.canvas.draw().fillRect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
-      this.canvas.draw().setColor = "#000000";
+      this.canvas.draw().setColor = "000000";
       this.canvas.draw().font = "14px Arial";
       this.canvas.draw().textAlign = "center";
       this.canvas.draw().textBaseline = "middle";
