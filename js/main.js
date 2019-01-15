@@ -15,8 +15,7 @@ $(function() {
 	for (var i = 0; i < 10; i++) {
 		balls.push( new Ball(canvas) );
 	}
-  var arrow = new Arrow(canvas, balls[0].getPosition());
-  var inputHandler = new ArrowInputHandler(arrow, balls[0]);
+
 	//Create the tiles
 	var tiles = [];
 	for (var j = 0; j < 5; j++) {
@@ -71,7 +70,7 @@ $(function() {
 			launcher.draw(event); //Points launcher upon mouse hover (right now just creates a ball on cursor)
 		}
 	}
-/*
+
 	//Shoot balls
 	onclick = function(e) {
 		running = true;
@@ -86,5 +85,5 @@ $(function() {
 		startTime = Date.now();
 		setInterval(step, 10);
 	}
-*/
+
 });
