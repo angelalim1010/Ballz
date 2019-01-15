@@ -1,7 +1,7 @@
 class Ball{
 
     constructor(canvas){
-        this.RADIUS = 10;
+        this.RADIUS = 5;
         this.canvas = canvas;
         this.position = canvas.getInitialPosition();
         this.movement = new Movement(90, 0);
@@ -15,7 +15,7 @@ class Ball{
     draw(){
         this.canvas.draw().beginPath();
         this.canvas.draw().arc(this.position.getX(), this.position.getY(), this.RADIUS, 0, 2 * Math.PI, false);
-        this.canvas.draw().fillStyle = "green";
+        this.canvas.draw().fillStyle = "DDDDDD";
         this.canvas.draw().fill();
         this.canvas.draw().stroke();
     }
