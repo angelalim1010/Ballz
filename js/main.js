@@ -9,7 +9,8 @@ $(function() {
 
 	//Create the ball launcher
 	var launcher = new BallLauncher(canvas);
-
+  var arrow = new Arrow(canvas, balls[0].getPosition());
+  var inputHandler = new ArrowInputHandler(arrow, balls[0]);
 	//Create the balls
 	var balls = [];
 	for (var i = 0; i < 10; i++) {
@@ -36,10 +37,13 @@ $(function() {
 			ball.draw();
 			// Check if the ball should start moving.
 			 if (!ball.isMoving()) {
+         arrow.draw();
+      }
+         for(var i =0l i< balls.length; i++){
 				if (Date.now() - startTime > 500 * i) {
 					ball.move(mvmt);
 				}
-				ball.draw();
+				ball[i].draw();
 				return;
 			}
 

@@ -32,6 +32,10 @@ class Ball {
 		console.log('DRAWING BALL');
 	}
 
+  getPosition(){
+    return this.position;
+  }
+
 	//move - Moves ball by updating xcor and ycor with dx and dy
 	//If ball has hit a wall, bounces off in opposite direction
 	move(movement) {
