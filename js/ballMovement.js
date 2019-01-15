@@ -1,8 +1,8 @@
 // Represents one movement of one ball.
 // Tries to move and handle bounces on various elements, if necessary.
-class BallMovement {
+class Bounce{
 
-  constructor(canvas, bricks, radius){
+    constructor(canvas, bricks, radius){
         this.canvas = canvas;
         this.bricks = bricks;
         this.radius = radius;
@@ -32,4 +32,5 @@ class BallMovement {
             }
         }
     }
+
 }
