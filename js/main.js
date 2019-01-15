@@ -14,7 +14,7 @@ $(function(){
         bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
     }
 
-    var bounce = new Bounce(canvas, bricks, balls[0].getRadius());
+    var bounce = new ballMovement(canvas, bricks, balls[0].getRadius());
 
     var inputHandler = new ArrowInputHandler(arrow, balls[0]);
 
