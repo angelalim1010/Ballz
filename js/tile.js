@@ -5,7 +5,7 @@ class Tile {
 		this.canvas = canvas;
 		this.SIZE = 50;
 
-		this.x = 10 * j;
+		this.x = 40 * j;
 		this.y = 10;
 		this.power = 5;
 	}
