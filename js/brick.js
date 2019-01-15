@@ -6,7 +6,7 @@ class Brick {
       this.WIDTH = 40;
       this.HEIGHT = 40;
       this.position = position;
-      this.power = power;
+      this.power = 12;
   }
 
   getTop(){ return this.position.getY(); }
@@ -20,13 +20,11 @@ class Brick {
       this.canvas.draw().setColor("#AAAAAAA");
       this.canvas.draw().fillRect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
       this.canvas.draw().setColor = "#000000";
-      const textHeight = 12;
-		this.canvas.draw().font = textHeight + "px Arial";
-		var textWidth = this.canvas.draw().measureText(this.power).width;
-		this.canvas.draw().fillText(
-			this.power,
-			this.x + (this.SIZE - textWidth) / 2,
-			this.y + textHeight + (this.SIZE - textHeight) / 2);
+      this.canvas.draw().font = "14px Arial";
+      this.canvas.draw().textAlign = "center";
+      this.canvas.draw().textBaseline = "middle";
+      this.canvas.draw().fillText(this.power, this.position.getX() + this.WIDTH/2, this.position.getY() + this.HEIGHT/2);
+      this.canvas.draw().stroke();
   }
   decreasePower(){
     this.power--;
