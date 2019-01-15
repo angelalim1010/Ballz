@@ -13,7 +13,7 @@ class Canvas{
     getHeight(){ return this.height; }
 
     getInitialPosition(){
-        return new Position(this.width/2, this.height - 10);
+        return new Position(this.width/2, this.height - 20);
     }
 
 }
