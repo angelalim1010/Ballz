@@ -6,7 +6,7 @@ class Brick {
       this.WIDTH = 40;
       this.HEIGHT = 40;
       this.position = position;
-      this.power = 12;
+      this.power = power;
   }
 
   getTop(){ return this.position.getY(); }
@@ -17,16 +17,16 @@ class Brick {
   isActive(){ return this.power > 0; }
 
   draw(){
-      this.canvas.draw().beginPath();
-      this.canvas.draw().rect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
-      this.canvas.draw().fillStyle = "AAAAAA";
-      this.canvas.draw().fill();
-      this.canvas.draw().fillStyle = "DDDDDD";
-      this.canvas.draw().font = "14px Arial";
-      this.canvas.draw().textAlign = "center";
-      this.canvas.draw().textBaseline = "middle";
-      this.canvas.draw().fillText(this.power, this.position.getX() + this.WIDTH/2, this.position.getY() + this.HEIGHT/2);
-      this.canvas.draw().stroke();
+      this.canvas.draw().setColor("#AAAAAAA");
+      this.canvas.draw().fillRect(this.position.getX(), this.position.getY(), this.WIDTH, this.HEIGHT);
+      this.canvas.draw().setColor = "#000000";
+      const textHeight = 12;
+		this.canvas.draw().font = textHeight + "px Arial";
+		var textWidth = this.canvas.draw().measureText(this.power).width;
+		this.canvas.draw().fillText(
+			this.power,
+			this.x + (this.SIZE - textWidth) / 2,
+			this.y + textHeight + (this.SIZE - textHeight) / 2);
   }
   decreasePower(){
     this.power--;
