@@ -39,7 +39,7 @@ $(function() {
 			 if (!ball.isMoving()) {
          arrow.draw();
       }
-         for(var i =0l i< balls.length; i++){
+         for(var i =0; i< balls.length; i++){
 				if (Date.now() - startTime > 500 * i) {
 					ball.move(mvmt);
 				}
