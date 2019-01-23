@@ -1,3 +1,6 @@
+//class that handles when the left arrow and right arrow are pressed
+//changes angle of the arrow 
+
 class ArrowInputHandler{
 
     constructor(arrow, ball){

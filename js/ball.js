@@ -1,3 +1,4 @@
+//class that draws, sets the movemet for the ball
 class Ball{
 
     constructor(canvas){

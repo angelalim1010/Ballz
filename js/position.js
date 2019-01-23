@@ -1,3 +1,5 @@
+//class that will return the position of an object 
+
 class Position{
 
     constructor(x, y){

@@ -1,3 +1,5 @@
+//draws and sets angle for arrow
+
 class Arrow{
 
     constructor(canvas, ballPosition){
