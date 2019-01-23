@@ -59,7 +59,7 @@ $(function(){
             balls[i].draw();
         }
 
-        if(firstBall != -1 && !ballsMoving()){
+        if(firstBall != undefined && !ballsMoving()){
             var startX = balls[firstBall].getPosition().getX();
             for(var i = 0; i < balls.length; i++){
                 if(i != firstBall){
