@@ -71,8 +71,10 @@ $(function(){
 
         for(var i = 0; i < bricks.length; i++){
             if(bricks[i].isActive()) bricks[i].draw();
-            else //bricks.splice(i, 1);
-            (bricks=bricks.filter=>bricks[i]=>bricks[i].isActive();)
+            //bricks.splice(i, 1);
+            else {
+              bricks=bricks.filter(bricks=>bricks.isActive());
+            }
         }
 
         requestAnimationFrame(gameLoop);
