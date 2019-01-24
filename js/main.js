@@ -73,7 +73,7 @@ $(function(){
             if(bricks[i].isActive()) bricks[i].draw();
             //bricks.splice(i, 1);
             else (
-              bricks=bricks.filter(bricks=>bricks.isActive());
+              bricks=bricks.filter(bricks=>bricks.isActive())
             )
         }
 
