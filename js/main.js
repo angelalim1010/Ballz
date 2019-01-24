@@ -74,7 +74,7 @@ $(function(){
             //bricks.splice(i, 1);
             else (
               //bricks=bricks.filter(bricks=>bricks.isActive())
-              bricks.splice(i, 1);
+              bricks.splice(i, 1)
             )
         }
 
