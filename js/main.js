@@ -11,7 +11,7 @@ $(function(){
     var bricks = []
 
     for(var i = 0; i < 5; i++){
-        bricks.push(new Brick(canvas, new Position((i+1) * 50, 200)));
+        bricks.push(new Brick(canvas, new Position((i+1) * 50, 50)));
     }
 
     var bounce = new Bounce(canvas, bricks, balls[0].getRadius());
@@ -72,9 +72,9 @@ $(function(){
         for(var i = 0; i < bricks.length; i++){
             if(bricks[i].isActive()) bricks[i].draw();
             //bricks.splice(i, 1);
-            else {
+            else (
               bricks=bricks.filter(bricks=>bricks.isActive();
-            }
+            )
         }
 
         requestAnimationFrame(gameLoop);
