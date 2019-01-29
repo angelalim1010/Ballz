@@ -31,13 +31,7 @@ class Brick {
   decreasePower(){
     this.power--;
   }
-	// Indicates that the brick has been touched by a ball.
-	touchedByBall() {
-		if (--this.power <= 0) {
-			//this._erase();
-		};
-	}
-  _erase(){
-
+  shiftRowDown(){
+    this.HEIGHT += 30;
   }
 }
