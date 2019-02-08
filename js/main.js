@@ -7,11 +7,11 @@ $(function(){
     }
 
     var arrow = new Arrow(canvas, balls[0].getPosition());
-
+  var score = 1;
     var bricks = []
 
-    for(var i = 0; i < 5; i++){
-        bricks.push(new Brick(canvas, new Position((i+1) * 50, 50)));
+    for(var i = 0; i < 7; i++){
+        bricks.push(new Brick(canvas, score, new Position((i+1) * 45, 50)));
     }
 
     var bounce = new Bounce(canvas, bricks, balls[0].getRadius());
@@ -22,7 +22,7 @@ $(function(){
 
     var startTime;
     var firstBall = undefined;
-
+    var round_ended = false;
     $('#startGame').click(function(){
         if(!balls[0].isMoving()){
             for(var i = 0; i < balls.length; i++){
@@ -34,6 +34,7 @@ $(function(){
             startTime = Date.now();
             this.blur();
         }
+        roundEnd();
     });
 
     function ballsMoving(){
@@ -41,11 +42,51 @@ $(function(){
             if(balls[i].isMoving()) return true;
         }
         return false;
+        //console.log("balls not moving")
+    }
+    var drawTiles = function(){
+      for(var i = 0; i < bricks.length; i++){
+          if(bricks[i].isActive()) bricks[i].draw();
+          //bricks.splice(i, 1);
+          else bricks.splice(i, 1);
+            //bricks=bricks.filter(bricks=>bricks.isActive())
+
+      }
+    }/*
+    var ballStopped = function (){
+      for (var i = 0; i < 10; i++){
+        let ball = balls[i];
+        if (ball.movement.getDx() != 0 && ball.movement.getDy() != 0) {
+        return false;
+      }
+      }
+      return true;
+    //  console.log("the balls have stopped")
+    }
+*/
+    var roundEnd = function(){
+        for (var i = 0; i < bricks.length; i++){
+          if(bricks[i].isActive()){
+          brick = bricks[i];
+          brick.shiftRowDown();
+        }
+        if (brick.isActive && brick.getTop() >= canvas.getHeight() - 99) {
+					//gameOver = true;
+					alert("Game over. Plese refresh the page");
+					console.log("Refresh page to try again");
+				}
+        }
+        //
+        // bricks.push(new Array());
+        // for (var i = 0; i < 7; i++)
+        // bricks.push(new Brick(canvas,score, new Position((i+1) * 45, 50)));
+      //  drawTiles();
+
     }
 
     function gameLoop(){
         canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
+        drawTiles();
         if(!ballsMoving()){
             arrow.draw();
         }
@@ -67,8 +108,15 @@ $(function(){
                 }
             }
             firstBall = undefined;
-        }
+          //  roundEnd();
+          //round_ended = true;
 
+        }
+        // if(round_ended == true){
+        //   roundEnd();
+        // }
+      //  drawTiles();
+/*
         for(var i = 0; i < bricks.length; i++){
             if(bricks[i].isActive()) bricks[i].draw();
             //bricks.splice(i, 1);
@@ -77,10 +125,17 @@ $(function(){
 
 
         }
-
+        /*
+        if(ballStopped()){
+          console.log("balls stopped")
+        }
+        */
         requestAnimationFrame(gameLoop);
     }
 
     gameLoop();
+
+
+
 
 });

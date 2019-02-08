@@ -1,12 +1,13 @@
 // Represents one brick in the game.
 class Brick {
 
-  constructor(canvas, position){
+  constructor(canvas, power, position){
       this.canvas = canvas;
       this.WIDTH = 40;
       this.HEIGHT = 40;
       this.position = position;
-      this.power = 12;
+      this.power = power;
+      this.spawnTile = (Math.random()*100) < 50; // 50% chance of spawning a tile
   }
 
   getTop(){ return this.position.getY(); }
@@ -14,7 +15,7 @@ class Brick {
   getLeft(){ return this.position.getX(); }
   getRight(){ return this.position.getX() + this.WIDTH; }
 
-  isActive(){ return this.power > 0; }
+  isActive(){ return this.spawnTile && this.power > 0; }
 
   draw(){
     this.canvas.draw().beginPath();
@@ -32,6 +33,6 @@ class Brick {
     this.power--;
   }
   shiftRowDown(){
-    this.HEIGHT += 30;
+    this.position.y += 30;
   }
 }
