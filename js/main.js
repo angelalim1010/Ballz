@@ -8,7 +8,7 @@ $(function(){
 
     var arrow = new Arrow(canvas, balls[0].getPosition());
   var score = 1;
-    var bricks = []
+    var bricks = [];
 
     for(var i = 0; i < 7; i++){
         bricks.push(new Brick(canvas, score, new Position((i+1) * 45, 50)));
@@ -52,18 +52,7 @@ $(function(){
             //bricks=bricks.filter(bricks=>bricks.isActive())
 
       }
-    }/*
-    var ballStopped = function (){
-      for (var i = 0; i < 10; i++){
-        let ball = balls[i];
-        if (ball.movement.getDx() != 0 && ball.movement.getDy() != 0) {
-        return false;
-      }
-      }
-      return true;
-    //  console.log("the balls have stopped")
     }
-*/
     var roundEnd = function(){
         for (var i = 0; i < bricks.length; i++){
           if(bricks[i].isActive()){
@@ -108,28 +97,8 @@ $(function(){
                 }
             }
             firstBall = undefined;
-          //  roundEnd();
-          //round_ended = true;
 
         }
-        // if(round_ended == true){
-        //   roundEnd();
-        // }
-      //  drawTiles();
-/*
-        for(var i = 0; i < bricks.length; i++){
-            if(bricks[i].isActive()) bricks[i].draw();
-            //bricks.splice(i, 1);
-            else bricks.splice(i, 1);
-              //bricks=bricks.filter(bricks=>bricks.isActive())
-
-
-        }
-        /*
-        if(ballStopped()){
-          console.log("balls stopped")
-        }
-        */
         requestAnimationFrame(gameLoop);
     }
 
