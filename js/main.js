@@ -7,7 +7,7 @@ $(function(){
     }
 
     var arrow = new Arrow(canvas, balls[0].getPosition());
-  var score = 1;
+    var score = 1;
     var bricks = [];
 
     for(var i = 0; i < 7; i++){
@@ -22,9 +22,9 @@ $(function(){
 
     var startTime;
     var firstBall = undefined;
-    var round_ended = false;
+    var startRound = false;
     $('#startGame').click(function(){
-        if(!balls[0].isMoving()){
+        if(!startRound){
             for(var i = 0; i < balls.length; i++){
                 nextMove = new Movement(arrow.getAngle(), 5);
                 balls[i].setMovement(nextMove);
@@ -33,8 +33,9 @@ $(function(){
             inputHandler = new ArrowInputHandler(arrow, balls[0]);
             startTime = Date.now();
             this.blur();
+            startRound = true;
         }
-        roundEnd();
+
     });
 
     function ballsMoving(){
@@ -42,7 +43,7 @@ $(function(){
             if(balls[i].isMoving()) return true;
         }
         return false;
-        //console.log("balls not moving")
+
     }
     var drawTiles = function(){
       for(var i = 0; i < bricks.length; i++){
@@ -60,7 +61,6 @@ $(function(){
           brick.shiftRowDown();
         }
         if (brick.isActive && brick.getTop() >= canvas.getHeight() - 99) {
-					//gameOver = true;
 					alert("Game over. Plese refresh the page");
 					console.log("Refresh page to try again");
 				}
@@ -76,27 +76,30 @@ $(function(){
     function gameLoop(){
         canvas.draw().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         drawTiles();
-        if(!ballsMoving()){
+        if(!startRound){
             arrow.draw();
         }
 
         for(var i = 0; i< balls.length; i++){
             if(Date.now() - startTime > 200 * i){
                 balls[i].move(bounce);
-                if(!balls[i].isMoving() && firstBall == undefined) firstBall = i;
+                if(startRound && !balls[i].isMoving() && firstBall == undefined) firstBall = i;
             }
 
             balls[i].draw();
         }
 
-        if(firstBall != undefined && !ballsMoving()){
+        if(firstBall != undefined && !ballsMoving() && startRound){
             var startX = balls[firstBall].getPosition().getX();
             for(var i = 0; i < balls.length; i++){
                 if(i != firstBall){
                     balls[i].getPosition().setX(startX);
                 }
             }
+            startRound = false;
             firstBall = undefined;
+            console.log("balls stopped moving")
+            roundEnd();
 
         }
         requestAnimationFrame(gameLoop);
